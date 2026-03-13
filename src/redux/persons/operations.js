@@ -1,14 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+export const fetchAllPersons = createAsyncThunk("", async (_, thunkAPI) => {
+  try {
+    const res = axios.get(
+      "https://nannies-cbc6e-default-rtdb.firebaseio.com/.json"
+    );
 
-export const fetchAllPersons = createAsyncThunk("", async (_,thunkAPI) => {
-    try {
-        const res = axios.get("")
-
-        return res.data
-    } catch (error) {
-        return thunkAPI.rejectWithValue(error.message)
-    }
-})
-
+    return res.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.message);
+  }
+});

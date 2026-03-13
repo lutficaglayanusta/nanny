@@ -1,0 +1,33 @@
+.navbar{
+    display: flex;
+    gap: 100px;
+    align-items: center;
+}
+.navbar ul{
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    list-style: none;
+}
+.navbar ul li a{
+    text-decoration: none;
+    color: black;
+}
+.register{
+    padding: 14px 40px;
+    background-color: #0957C3;
+    border: none;
+    border-radius: 30px;
+    color: white;
+    cursor: pointer;
+}
+.login{
+    padding: 14px 40px;
+    color: white;
+    border: 1px solid #84746A;
+    border-radius: 30px;
+    cursor: pointer;
+}
+.logo{
+    font-size: 1.5rem;
+}
