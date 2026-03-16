@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const fetchAllPersons = createAsyncThunk("", async (_, thunkAPI) => {
   try {
-    const res = axios.get(
+    const res = await axios.get(
       "https://nannies-cbc6e-default-rtdb.firebaseio.com/.json"
     );
 
