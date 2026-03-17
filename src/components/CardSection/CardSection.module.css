@@ -1,16 +1,55 @@
+.heading{
+    margin-bottom: 10px;
+}
 .card{
     margin: 20px auto;
     display: flex;
     gap: 20px;
+}
+.card img{
+    border-radius: 15px;
 }
 .card ul{
     list-style: none;
 }
 .card .cardItem{
     display: flex;
-
+    position: relative;
 }
 .card .cardItem .info{
+    display: flex;
+    position: absolute;
+    right: 0;
+    top: 10px;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.card .cardItem .info li{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+.card .cardItem .item li{
+    margin: 20px 0px;
+}
+.card .cardItem .title{
+    border-radius: 50%;
+    background-color: #CBDAF0;
+    padding: 10px 15px;
+    color: #115cc5;
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+.card .cardItem .star{
+    display: flex;
+    gap: 5px;
+}
+.card .cardItem .comment{
+    color: #C4CCCB;
+    margin-top: 10px;
+}
+.card .cardItem .item .review{
     display: flex;
     gap: 10px;
 }
@@ -18,7 +57,7 @@
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
-    width: 90%;
+    margin-top: 25px;
 }
 .card .cardItem .all li{
     padding: 8px 16px;
@@ -26,5 +65,9 @@
     border-radius: 24px;
 }
 .card .cardItem .about{
+    color: #C4CCCB;
     margin: 20px 0px;
+}
+.color{
+    color: #C4CCCB;
 }
