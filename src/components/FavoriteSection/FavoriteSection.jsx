@@ -1,14 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
-import { selectPerson } from "../../redux/persons/selector";
+import styles from "./FavoriteSection.module.css";
 import { selectFavorites } from "../../redux/favorites/selector";
 import { addFavorite, removeFavorite } from "../../redux/favorites/slice";
-import styles from "./CardSection.module.css";
 
-const CardSection = () => {
-  const products = useSelector(selectPerson);
+const FavoriteSection = () => {
   const favorites = useSelector(selectFavorites);
 
   const dispatch = useDispatch();
+
+  console.log(favorites);
 
   const handleToggleFavorite = (product) => {
     const isExist = favorites.some(
@@ -26,7 +26,7 @@ const CardSection = () => {
     <div>
       <div className="container">
         <div>
-          {products.map((product, index) => (
+          {favorites.map((product, index) => (
             <div className={styles.card} key={index}>
               <img src={product.avatar_url} width={96} height={96} alt="" />
               <div className={styles.cardItem}>
@@ -110,4 +110,4 @@ const CardSection = () => {
   );
 };
 
-export default CardSection;
+export default FavoriteSection;

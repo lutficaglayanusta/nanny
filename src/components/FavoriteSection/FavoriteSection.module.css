@@ -1,22 +1,27 @@
-.heading{
+.heading {
     margin-bottom: 10px;
 }
-.card{
+
+.card {
     margin: 20px auto;
     display: flex;
     gap: 20px;
 }
-.card img{
+
+.card img {
     border-radius: 15px;
 }
-.card ul{
+
+.card ul {
     list-style: none;
 }
-.card .cardItem{
+
+.card .cardItem {
     display: flex;
     position: relative;
 }
-.card .cardItem .info{
+
+.card .cardItem .info {
     display: flex;
     position: absolute;
     right: 0;
@@ -24,16 +29,19 @@
     gap: 10px;
     margin-bottom: 10px;
 }
-.card .cardItem .info li{
+
+.card .cardItem .info li {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 5px;
 }
-.card .cardItem .item li{
+
+.card .cardItem .item li {
     margin: 20px 0px;
 }
-.card .cardItem .title{
+
+.card .cardItem .title {
     border-radius: 50%;
     background-color: #CBDAF0;
     padding: 10px 15px;
@@ -41,36 +49,44 @@
     font-weight: bold;
     font-size: 1.25rem;
 }
-.card .cardItem .star{
+
+.card .cardItem .star {
     display: flex;
     gap: 5px;
 }
-.card .cardItem .comment{
+
+.card .cardItem .comment {
     color: #C4CCCB;
     margin-top: 10px;
 }
-.card .cardItem .item .review{
+
+.card .cardItem .item .review {
     display: flex;
     gap: 10px;
 }
-.card .cardItem .all{
+
+.card .cardItem .all {
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
     margin-top: 25px;
 }
-.card .cardItem .all li{
+
+.card .cardItem .all li {
     padding: 8px 16px;
     background-color: #F3F3F3;
     border-radius: 24px;
 }
-.card .cardItem .about{
+
+.card .cardItem .about {
     color: #C4CCCB;
     margin: 20px 0px;
 }
-.color{
+
+.color {
     color: #C4CCCB;
 }
+
 .heartBtn {
     background: none;
     border: none;
