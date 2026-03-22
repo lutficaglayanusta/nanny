@@ -3,12 +3,28 @@ import { selectPerson } from "../../redux/persons/selector";
 import { selectFavorites } from "../../redux/favorites/selector";
 import { addFavorite, removeFavorite } from "../../redux/favorites/slice";
 import styles from "./CardSection.module.css";
+import { useEffect, useState } from "react";
 
 const CardSection = () => {
+
+
+  const [part, setPart] = useState(0)
+  
+
+  
+
   const products = useSelector(selectPerson);
+
+  const newProducts = products.slice(0,part+3)
+
+
   const favorites = useSelector(selectFavorites);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setPart(0)
+  },[products])
 
   const handleToggleFavorite = (product) => {
     const isExist = favorites.some(
@@ -22,11 +38,19 @@ const CardSection = () => {
     }
   };
 
+  const loadMore = (e) => {
+    setPart(part + 3)
+    if (part + 4 >= products.length) {
+      e.target.style.display = "none"
+    }
+  }
+
+
   return (
     <div>
       <div className="container">
         <div>
-          {products.map((product, index) => (
+          {newProducts.map((product, index) => (
             <div className={styles.card} key={index}>
               <img src={product.avatar_url} width={96} height={96} alt="" />
               <div className={styles.cardItem}>
@@ -76,6 +100,7 @@ const CardSection = () => {
                       </li>
                     ))}
                   </ul>
+                  <button className={styles.make}>Make an appointment</button>
                 </div>
 
                 <ul className={styles.info}>
@@ -105,7 +130,12 @@ const CardSection = () => {
             </div>
           ))}
         </div>
+        {
+          products.length > 3 && newProducts.length < products.length && <button onClick={loadMore} className={styles.load}>Load More</button>
+        }
+        
       </div>
+
     </div>
   );
 };
