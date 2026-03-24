@@ -1,5 +1,7 @@
 import { Formik, Field, Form } from "formik";
 import styles from "./LoginForm.module.css"
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebaseConfig"; 
 
 const LoginForm = ({ setmodalLogin }) => {
   
@@ -8,8 +10,15 @@ const LoginForm = ({ setmodalLogin }) => {
   }
 
 
-  const handleSubmit = (values, actions) => {
-    console.log(values);
+  const handleSubmit = async (values, actions) => {
+    
+
+    try {
+      const userCredential  = await signInWithEmailAndPassword(auth, values.email, values.password)
+      
+    } catch (error) {
+      console.error("Giriş hatası:", error.message);
+    }
 
     actions.resetForm();
   };

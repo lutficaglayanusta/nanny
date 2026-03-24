@@ -1,9 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./Header.module.css";
 import Modal from "react-modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LoginForm from "../LoginForm/LoginForm";
 import RegisterForm from "../RegisterForm/RegisterForm";
+import { signOut, onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../firebaseConfig";
 
 const customStyles = {
   content: {
@@ -16,8 +18,19 @@ const customStyles = {
 };
 
 const Header = () => {
+  const navigate = useNavigate();
+
+  const [user, setUser] = useState(null);
+
   const [modalLogin, setmodalLogin] = useState(false);
   const [modalRegister, setmodalRegister] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
 
   function openModalLogin() {
     setmodalLogin(true);
@@ -35,6 +48,15 @@ const Header = () => {
     setmodalRegister(false);
   }
 
+  const handleLogOut = async () => {
+    try {
+      await signOut(auth);
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
       <header>
@@ -48,21 +70,42 @@ const Header = () => {
               <li>
                 <Link to="/nannies">Nannies</Link>
               </li>
-              <li>
-                <Link to="/favorites">Favorites</Link>
-              </li>
+              {user && (
+                <li>
+                  <Link to="/favorites">Favorites</Link>
+                </li>
+              )}
             </ul>
             <ul>
-              <li>
-                <button onClick={openModalLogin} className={styles.login}>
-                  Log In
-                </button>
-              </li>
-              <li>
-                <button onClick={openModalRegister} className={styles.register}>
-                  Register
-                </button>
-              </li>
+              {user ? (
+                <>
+                  <p>
+                    {user.displayName}
+                  </p>
+                <li>
+                  <button onClick={handleLogOut} className={styles.register}>
+                    Log Out
+                  </button>
+                </li>
+                </>
+                
+              ) : (
+                <>
+                  <li>
+                    <button onClick={openModalLogin} className={styles.login}>
+                      Log In
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      onClick={openModalRegister}
+                      className={styles.register}
+                    >
+                      Register
+                    </button>
+                  </li>
+                </>
+              )}
             </ul>
           </nav>
         </div>
