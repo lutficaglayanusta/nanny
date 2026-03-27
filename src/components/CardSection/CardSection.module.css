@@ -1,22 +1,30 @@
-.heading{
+.heading {
     margin-bottom: 10px;
 }
-.card{
+
+.card {
     margin: 32px auto;
     display: flex;
     gap: 20px;
 }
-.card img{
+
+.card img {
     border-radius: 15px;
 }
-.card ul{
+
+.card ul {
     list-style: none;
+    padding: 0;
+    margin: 0;
 }
-.card .cardItem{
+
+.card .cardItem {
     display: flex;
     position: relative;
+    width: 100%;
 }
-.card .cardItem .info{
+
+.card .cardItem .info {
     display: flex;
     position: absolute;
     right: 0;
@@ -24,16 +32,19 @@
     gap: 10px;
     margin-bottom: 10px;
 }
-.card .cardItem .info li{
+
+.card .cardItem .info li {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 5px;
 }
-.card .cardItem .item li:first-child{
+
+.card .cardItem .item li:first-child {
     margin-bottom: 25px;
 }
-.card .cardItem .title{
+
+.card .cardItem .title {
     border-radius: 50%;
     background-color: #CBDAF0;
     padding: 10px 15px;
@@ -41,36 +52,44 @@
     font-weight: bold;
     font-size: 1.25rem;
 }
-.card .cardItem .star{
+
+.card .cardItem .star {
     display: flex;
     gap: 5px;
 }
-.card .cardItem .comment{
+
+.card .cardItem .comment {
     color: #C4CCCB;
     margin-top: 10px;
 }
-.card .cardItem .item .review{
+
+.card .cardItem .item .review {
     display: flex;
     gap: 10px;
 }
-.card .cardItem .all{
+
+.card .cardItem .all {
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
     margin-top: 25px;
 }
-.card .cardItem .all li{
+
+.card .cardItem .all li {
     padding: 8px 16px;
     background-color: #F3F3F3;
     border-radius: 24px;
 }
-.card .cardItem .about{
+
+.card .cardItem .about {
     color: #C4CCCB;
     margin: 24px 0px 48px 0px;
 }
-.color{
+
+.color {
     color: #C4CCCB;
 }
+
 .heartBtn {
     background: none;
     border: none;
@@ -84,7 +103,8 @@
 .heartBtn:hover {
     opacity: 0.8;
 }
-.load{
+
+.load {
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -96,6 +116,7 @@
     color: white;
     cursor: pointer;
 }
+
 .make {
     margin-top: 48px;
     background-color: #0957C3;
@@ -104,4 +125,65 @@
     cursor: pointer;
     border-radius: 30px;
     border: none;
+}
+
+/* ════════════════════════════════
+   TABLET  (≤ 768px)
+   ════════════════════════════════ */
+@media (max-width: 768px) {
+    .card {
+        flex-direction: column;
+        margin: 24px 16px;
+        gap: 16px;
+    }
+
+    .card .cardItem {
+        flex-direction: column;
+    }
+
+    /* absolute olan info bar normal akışa alınır, taşma olmaz */
+    .card .cardItem .info {
+        position: static;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 12px;
+        margin-bottom: 0;
+    }
+
+    .card .cardItem .about {
+        margin: 16px 0 32px 0;
+    }
+
+    .make {
+        margin-top: 32px;
+    }
+}
+
+/* ════════════════════════════════
+   MOBILE  (≤ 480px)
+   ════════════════════════════════ */
+@media (max-width: 480px) {
+    .card {
+        margin: 16px 12px;
+        gap: 12px;
+    }
+
+    .card .cardItem .all {
+        gap: 8px;
+    }
+
+    .card .cardItem .all li {
+        padding: 6px 12px;
+        font-size: 0.85rem;
+    }
+
+    .load {
+        margin-top: 32px;
+        padding: 12px 32px;
+    }
+
+    .make {
+        padding: 12px 20px;
+        margin-top: 24px;
+    }
 }

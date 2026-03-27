@@ -54,6 +54,29 @@ const CardSection = () => {
             <div className={styles.card} key={index}>
               <img src={product.avatar_url} width={96} height={96} alt="" />
               <div className={styles.cardItem}>
+                <ul className={styles.info}>
+                  <li>
+                    <img src="../../../map-pin.svg" alt="location" />
+                    {product.location}
+                  </li>
+                  <li>
+                    <img src="../../../star.svg" alt="" />
+                    {product.rating}
+                  </li>
+                  <li>Price / 1 hour: {product.price_per_hour}</li>
+                  <li>
+                    <button
+                      className={styles.heartBtn}
+                      onClick={() => handleToggleFavorite(product)}
+                    >
+                      {favorites.some(
+                        (favorite) => favorite.name === product.name,
+                      )
+                        ? "♥"
+                        : "♡"}
+                    </button>
+                  </li>
+                </ul>
                 <div className={styles.cardinfo}>
                   <h2 className={styles.heading}>{product.name}</h2>
                   <ul className={styles.all}>
@@ -103,29 +126,7 @@ const CardSection = () => {
                   <button className={styles.make}>Make an appointment</button>
                 </div>
 
-                <ul className={styles.info}>
-                  <li>
-                    <img src="../../../map-pin.svg" alt="location" />
-                    {product.location}
-                  </li>
-                  <li>
-                    <img src="../../../star.svg" alt="" />
-                    {product.rating}
-                  </li>
-                  <li>Price / 1 hour: {product.price_per_hour}</li>
-                  <li>
-                    <button
-                      className={styles.heartBtn}
-                      onClick={() => handleToggleFavorite(product)}
-                    >
-                      {favorites.some(
-                        (favorite) => favorite.name === product.name,
-                      )
-                        ? "♥"
-                        : "♡"}
-                    </button>
-                  </li>
-                </ul>
+                
               </div>
             </div>
           ))}
