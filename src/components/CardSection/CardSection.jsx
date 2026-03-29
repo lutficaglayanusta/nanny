@@ -4,27 +4,46 @@ import { selectFavorites } from "../../redux/favorites/selector";
 import { addFavorite, removeFavorite } from "../../redux/favorites/slice";
 import styles from "./CardSection.module.css";
 import { useEffect, useState } from "react";
+import Modal from "react-modal";
+import ApplyForm from "../../ApplyForm/ApplyForm";
+
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    transform: "translate(-50%, -50%)",
+    zIndex: 1000,
+  },
+};
 
 const CardSection = () => {
+  const [part, setPart] = useState(0);
+  const [product, setProduct] = useState(null);
 
+  const [modalIsOpen, setIsOpen] = useState(false);
 
-  const [part, setPart] = useState(0)
+  const  openModal = (product) => {
+    setIsOpen(true);
+    setProduct(product);
+  }
   
-
-  
+  function closeModal() {
+    setIsOpen(false);
+  }
 
   const products = useSelector(selectPerson);
 
-  const newProducts = products.slice(0,part+3)
-
+  const newProducts = products.slice(0, part + 3);
 
   const favorites = useSelector(selectFavorites);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setPart(0)
-  },[products])
+    setPart(0);
+  }, [products]);
 
   const handleToggleFavorite = (product) => {
     const isExist = favorites.some(
@@ -39,15 +58,14 @@ const CardSection = () => {
   };
 
   const loadMore = (e) => {
-    setPart(part + 3)
+    setPart(part + 3);
     if (part + 4 >= products.length) {
-      e.target.style.display = "none"
+      e.target.style.display = "none";
     }
-  }
-
+  };
 
   return (
-    <div>
+    <>
       <div className="container">
         <div>
           {newProducts.map((product, index) => (
@@ -123,21 +141,31 @@ const CardSection = () => {
                       </li>
                     ))}
                   </ul>
-                  <button className={styles.make}>Make an appointment</button>
+                  <button
+                    onClick={() => openModal(product)}
+                    className={styles.make}
+                  >
+                    Make an appointment
+                  </button>
                 </div>
-
-                
               </div>
             </div>
           ))}
         </div>
-        {
-          products.length > 3 && newProducts.length < products.length && <button onClick={loadMore} className={styles.load}>Load More</button>
-        }
-        
+        {products.length > 3 && newProducts.length < products.length && (
+          <button onClick={loadMore} className={styles.load}>
+            Load More
+          </button>
+        )}
       </div>
-
-    </div>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        style={customStyles}
+      >
+        <ApplyForm product={product} setIsOpen={setIsOpen} />
+      </Modal>
+    </>
   );
 };
 

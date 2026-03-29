@@ -8,8 +8,6 @@ const FavoriteSection = () => {
 
   const dispatch = useDispatch();
 
-  console.log(favorites);
-
   const handleToggleFavorite = (product) => {
     const isExist = favorites.some(
       (favorite) => favorite.name === product.name,
@@ -99,6 +97,7 @@ const FavoriteSection = () => {
                       </li>
                     ))}
                   </ul>
+                  <button className={styles.make}>Make an appointment</button>
                 </div>
 
                 
