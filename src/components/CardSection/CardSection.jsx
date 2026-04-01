@@ -19,37 +19,31 @@ const customStyles = {
 };
 
 const CardSection = () => {
-  const [part, setPart] = useState(0);
   const [product, setProduct] = useState(null);
-
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [sourceProducts, setSourceProducts] = useState([]);
+  const [visibleCount, setVisibleCount] = useState(3);
 
-  const  openModal = (product) => {
+  const openModal = (product) => {
     setIsOpen(true);
     setProduct(product);
-  }
-  
+  };
+
   function closeModal() {
     setIsOpen(false);
   }
 
   const products = useSelector(selectPerson);
-
-  const newProducts = products.slice(0, part + 3);
-
   const favorites = useSelector(selectFavorites);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setPart(0);
+    setSourceProducts(products);
+    setVisibleCount(3);
   }, [products]);
 
   const handleToggleFavorite = (product) => {
-    const isExist = favorites.some(
-      (favorite) => favorite.name === product.name,
-    );
-
+    const isExist = favorites.some((favorite) => favorite.name === product.name);
     if (isExist) {
       dispatch(removeFavorite(product));
     } else {
@@ -57,18 +51,49 @@ const CardSection = () => {
     }
   };
 
-  const loadMore = (e) => {
-    setPart(part + 3);
-    if (part + 4 >= products.length) {
-      e.target.style.display = "none";
-    }
+  const loadMore = () => {
+    setVisibleCount((prev) => prev + 3);
   };
+
+  const handleSort = (e) => {
+    const value = e.target.value;
+    let result = [...products];
+
+    if (value === "Z to A") {
+      result.reverse();
+    } else if (value === "Less than 10$") {
+      result = result.filter((p) => p.price_per_hour < 10);
+    } else if (value === "Greater than 10$") {
+      result = result.filter((p) => p.price_per_hour > 10);
+    } else if (value === "Popular") {
+      result = result.filter((p) => p.rating >= 4.5);
+    } else if (value === "Not popular") {
+      result = result.filter((p) => p.rating < 4.5);
+    } else {
+      result.sort((a, b) => a.id - b.id);
+    }
+
+    setSourceProducts(result);
+    setVisibleCount(3); // her filtrelemede başa dön
+  };
+
+  const displayProducts = sourceProducts.slice(0, visibleCount);
+  const showLoadMore = visibleCount < sourceProducts.length;
 
   return (
     <>
       <div className="container">
+        <select onChange={handleSort} name="" id="">
+          <option value="A to Z">A to Z</option>
+          <option value="Z to A">Z to A</option>
+          <option value="Less than 10$">Less than 10$</option>
+          <option value="Greater than 10$">Greater than 10$</option>
+          <option value="Popular">Popular</option>
+          <option value="Not popular">Not popular</option>
+          <option value="">Show all</option>
+        </select>
         <div>
-          {newProducts.map((product, index) => (
+          {displayProducts.map((product, index) => (
             <div className={styles.card} key={index}>
               <img src={product.avatar_url} width={96} height={96} alt="" />
               <div className={styles.cardItem}>
@@ -87,11 +112,7 @@ const CardSection = () => {
                       className={styles.heartBtn}
                       onClick={() => handleToggleFavorite(product)}
                     >
-                      {favorites.some(
-                        (favorite) => favorite.name === product.name,
-                      )
-                        ? "♥"
-                        : "♡"}
+                      {favorites.some((favorite) => favorite.name === product.name) ? "♥" : "♡"}
                     </button>
                   </li>
                 </ul>
@@ -100,25 +121,19 @@ const CardSection = () => {
                   <ul className={styles.all}>
                     <li>
                       <span className={styles.color}>Age:</span>{" "}
-                      {new Date().getFullYear() -
-                        new Date(product.birthday).getFullYear()}
+                      {new Date().getFullYear() - new Date(product.birthday).getFullYear()}
                     </li>
                     <li>
-                      <span className={styles.color}>Experience:</span>{" "}
-                      {product.experience}
+                      <span className={styles.color}>Experience:</span> {product.experience}
                     </li>
                     <li>
-                      <span className={styles.color}>Kids Age:</span>{" "}
-                      {product.kids_age}
+                      <span className={styles.color}>Kids Age:</span> {product.kids_age}
                     </li>
                     <li>
-                      <span className={styles.color}>Characters:</span>{" "}
-                      {product.characters}{" "}
+                      <span className={styles.color}>Characters:</span> {product.characters}
                     </li>
-
                     <li>
-                      <span className={styles.color}>Education:</span>{" "}
-                      {product.education}
+                      <span className={styles.color}>Education:</span> {product.education}
                     </li>
                   </ul>
                   <p className={styles.about}>{product.about}</p>
@@ -126,9 +141,7 @@ const CardSection = () => {
                     {product.reviews.map((item, index) => (
                       <li key={index}>
                         <div className={styles.review}>
-                          <p className={styles.title}>
-                            {item.reviewer[0].toUpperCase()}
-                          </p>
+                          <p className={styles.title}>{item.reviewer[0].toUpperCase()}</p>
                           <div>
                             <p>{item.reviewer}</p>
                             <div className={styles.star}>
@@ -141,10 +154,7 @@ const CardSection = () => {
                       </li>
                     ))}
                   </ul>
-                  <button
-                    onClick={() => openModal(product)}
-                    className={styles.make}
-                  >
+                  <button onClick={() => openModal(product)} className={styles.make}>
                     Make an appointment
                   </button>
                 </div>
@@ -152,17 +162,13 @@ const CardSection = () => {
             </div>
           ))}
         </div>
-        {products.length > 3 && newProducts.length < products.length && (
+        {showLoadMore && (
           <button onClick={loadMore} className={styles.load}>
             Load More
           </button>
         )}
       </div>
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        style={customStyles}
-      >
+      <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles}>
         <ApplyForm product={product} setIsOpen={setIsOpen} />
       </Modal>
     </>
@@ -170,3 +176,5 @@ const CardSection = () => {
 };
 
 export default CardSection;
+
+
