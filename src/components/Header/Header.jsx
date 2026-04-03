@@ -8,6 +8,11 @@ import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebaseConfig";
 
 const customStyles = {
+  overlay: {
+    backgroundColor: "rgba(0, 0, 0, 0.55)",
+    backdropFilter: "blur(4px)",
+    zIndex: 200,
+  },
   content: {
     top: "50%",
     left: "50%",

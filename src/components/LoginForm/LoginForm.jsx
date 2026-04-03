@@ -1,4 +1,5 @@
 import { Formik, Field, Form } from "formik";
+import { useNavigate } from "react-router-dom";
 import styles from "./LoginForm.module.css"
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebaseConfig"; 
@@ -8,14 +9,16 @@ const LoginForm = ({ setmodalLogin }) => {
   const closeModal = () => {
     setmodalLogin(false)
   }
+  const navigate = useNavigate();
 
 
   const handleSubmit = async (values, actions) => {
     
 
     try {
-      const userCredential  = await signInWithEmailAndPassword(auth, values.email, values.password)
-      
+      await signInWithEmailAndPassword(auth, values.email, values.password)
+      navigate("/nannies");
+      closeModal();
     } catch (error) {
       console.error("Giriş hatası:", error.message);
     }

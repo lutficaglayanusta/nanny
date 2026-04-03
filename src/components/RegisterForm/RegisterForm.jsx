@@ -1,4 +1,5 @@
 import { Formik, Field, Form } from "formik";
+import { useNavigate } from "react-router-dom";
 import styles from "./RegisterForm.module.css";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../../firebaseConfig";
@@ -7,6 +8,7 @@ const RegisterForm = ({ setmodalRegister }) => {
   const closeModal = () => {
     setmodalRegister(false);
   };
+  const navigate = useNavigate();
 
   const handleSubmit = async (values, actions) => {
     try {
@@ -19,6 +21,8 @@ const RegisterForm = ({ setmodalRegister }) => {
       await updateProfile(userCredential.user, {
         displayName: values.name,
       });
+      navigate("/nannies");
+      closeModal();
     } catch (error) {
       console.error("Giriş hatası:", error.message);
     }

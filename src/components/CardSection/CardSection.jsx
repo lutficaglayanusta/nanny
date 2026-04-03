@@ -8,14 +8,20 @@ import Modal from "react-modal";
 import ApplyForm from "../../ApplyForm/ApplyForm";
 
 const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    transform: "translate(-50%, -50%)",
-    zIndex: 1000,
+  overlay: {
+    backgroundColor: "rgba(0, 0, 0, 0.55)",
+    backdropFilter: "blur(4px)",
+    zIndex: 200,
   },
+  content: {
+  padding: 0,
+  border: "none",
+  borderRadius: "30px",
+  maxHeight: "90vh",
+  width: "min(600px, 90vw)",
+  inset: "50% auto auto 50%",
+  transform: "translate(-50%, -50%)",
+}
 };
 
 const CardSection = () => {

@@ -1,13 +1,43 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Modal from "react-modal";
 import styles from "./FavoriteSection.module.css";
 import { selectFavorites } from "../../redux/favorites/selector";
 import { addFavorite, removeFavorite } from "../../redux/favorites/slice";
+import ApplyForm from "../../ApplyForm/ApplyForm";
+
+const customStyles = {
+  overlay: {
+    backgroundColor: "rgba(0, 0, 0, 0.55)",
+    backdropFilter: "blur(4px)",
+    zIndex: 200,
+  },
+  content: {
+    padding: 0,
+    border: "none",
+    borderRadius: "30px",
+    maxHeight: "90vh",
+    inset: "50% auto auto 50%",
+    transform: "translate(-50%, -50%)",
+  },
+};
 
 const FavoriteSection = () => {
   const favorites = useSelector(selectFavorites);
   const [sourceProducts, setSourceProducts] = useState([]);
   const [visibleCount, setVisibleCount] = useState(3);
+  const [product, setProduct] = useState(null);
+
+  const [modalIsOpen, setIsOpen] = useState(false);
+
+  const openModal = (product) => {
+    setIsOpen(true);
+    setProduct(product);
+  };
+
+  function closeModal() {
+    setIsOpen(false);
+  }
 
   const dispatch = useDispatch();
 
@@ -17,7 +47,9 @@ const FavoriteSection = () => {
   }, [favorites]);
 
   const handleToggleFavorite = (product) => {
-    const isExist = favorites.some((favorite) => favorite.name === product.name);
+    const isExist = favorites.some(
+      (favorite) => favorite.name === product.name,
+    );
     if (isExist) {
       dispatch(removeFavorite(product));
     } else {
@@ -86,7 +118,11 @@ const FavoriteSection = () => {
                       className={styles.heartBtn}
                       onClick={() => handleToggleFavorite(product)}
                     >
-                      {favorites.some((favorite) => favorite.name === product.name) ? "♥" : "♡"}
+                      {favorites.some(
+                        (favorite) => favorite.name === product.name,
+                      )
+                        ? "♥"
+                        : "♡"}
                     </button>
                   </li>
                 </ul>
@@ -95,19 +131,24 @@ const FavoriteSection = () => {
                   <ul className={styles.all}>
                     <li>
                       <span className={styles.color}>Age:</span>{" "}
-                      {new Date().getFullYear() - new Date(product.birthday).getFullYear()}
+                      {new Date().getFullYear() -
+                        new Date(product.birthday).getFullYear()}
                     </li>
                     <li>
-                      <span className={styles.color}>Experience:</span> {product.experience}
+                      <span className={styles.color}>Experience:</span>{" "}
+                      {product.experience}
                     </li>
                     <li>
-                      <span className={styles.color}>Kids Age:</span> {product.kids_age}
+                      <span className={styles.color}>Kids Age:</span>{" "}
+                      {product.kids_age}
                     </li>
                     <li>
-                      <span className={styles.color}>Characters:</span> {product.characters}
+                      <span className={styles.color}>Characters:</span>{" "}
+                      {product.characters}
                     </li>
                     <li>
-                      <span className={styles.color}>Education:</span> {product.education}
+                      <span className={styles.color}>Education:</span>{" "}
+                      {product.education}
                     </li>
                   </ul>
                   <p className={styles.about}>{product.about}</p>
@@ -115,7 +156,9 @@ const FavoriteSection = () => {
                     {product.reviews.map((item, index) => (
                       <li key={index}>
                         <div className={styles.review}>
-                          <p className={styles.title}>{item.reviewer[0].toUpperCase()}</p>
+                          <p className={styles.title}>
+                            {item.reviewer[0].toUpperCase()}
+                          </p>
                           <div>
                             <p>{item.reviewer}</p>
                             <div className={styles.star}>
@@ -128,7 +171,12 @@ const FavoriteSection = () => {
                       </li>
                     ))}
                   </ul>
-                  <button className={styles.make}>Make an appointment</button>
+                  <button
+                    onClick={() => openModal(product)}
+                    className={styles.make}
+                  >
+                    Make an appointment
+                  </button>
                 </div>
               </div>
             </div>
@@ -140,6 +188,13 @@ const FavoriteSection = () => {
           </button>
         )}
       </div>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        style={customStyles}
+      >
+        <ApplyForm product={product} setIsOpen={setIsOpen} />
+      </Modal>
     </div>
   );
 };

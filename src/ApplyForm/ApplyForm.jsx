@@ -2,25 +2,29 @@ import { Formik, Field, Form } from "formik";
 import styles from "./ApplyForm.module.css";
 
 const ApplyForm = ({ setIsOpen, product }) => {
-
   const closeModalForm = () => {
     setIsOpen(false);
   };
 
   const handleSubmit = async (values, actions) => {
     console.log(values);
-
     actions.resetForm();
+    closeModalForm();
   };
 
   return (
-    <div className={styles.form}>
-      <h2>Make an appointment with a babysitter</h2>
+    <div className={styles.wrapper}>
+      <button className={styles.close} onClick={closeModalForm} aria-label="Close">
+        &#10006;
+      </button>
+
+      <h2 className={styles.title}>Make an appointment with a babysitter</h2>
       <p className={styles.text}>
         Arranging a meeting with a caregiver for your child is the first step to
         creating a safe and comfortable environment. Fill out the form below so
         we can match you with the perfect care partner.
       </p>
+
       <div className={styles.info}>
         <img
           className={styles.avatar}
@@ -30,8 +34,8 @@ const ApplyForm = ({ setIsOpen, product }) => {
           alt=""
         />
         <div>
-          <p>Your nanny</p>
-          <p>{product.name}</p>
+          <p className={styles.infoLabel}>Your nanny</p>
+          <p className={styles.infoName}>{product.name}</p>
         </div>
       </div>
 
@@ -39,58 +43,61 @@ const ApplyForm = ({ setIsOpen, product }) => {
         initialValues={{
           address: "",
           tel: "",
-          number: "",
-          message: "",
+          age: "",
           email: "",
-          password: "",
+          name: "",
+          message: "",
         }}
         onSubmit={handleSubmit}
       >
-        <Form>
-          <div className={styles.contact}>
+        <Form className={styles.form}>
+          <div className={styles.row}>
             <Field
               type="text"
-              id="address"
               name="address"
               placeholder="Address"
-              className={styles.address}
+              className={styles.input}
             />
             <Field
               type="tel"
-              id="tel"
               name="tel"
               placeholder="+380"
-              className={styles.tel}
+              className={styles.input}
             />
           </div>
 
-          <div className={styles.contact}></div>
-
           <Field
             type="number"
-            id="number"
-            name="number"
+            name="age"
             placeholder="Child's Age"
+            className={styles.input}
           />
 
-          <Field className={styles.email} type="email" id="email" name="email" placeholder="Email" />
+          <Field
+            type="email"
+            name="email"
+            placeholder="Email"
+            className={styles.input}
+          />
 
           <Field
             type="text"
-            id="name"
-                      name="name"
-                      className={styles.name}
+            name="name"
             placeholder="Father's or mother's name"
+            className={styles.input}
           />
-          <Field className={styles.message} as="textarea" name="message" id="message" rows="5" cols="50" placeholder="Comment" />
+
+          <Field
+            as="textarea"
+            name="message"
+            rows="4"
+            placeholder="Comment"
+            className={`${styles.input} ${styles.textarea}`}
+          />
 
           <button className={styles.submit} type="submit">
             Send
           </button>
-
-          <p onClick={closeModalForm} className={styles.close}>
-            &#10006;
-          </p>
         </Form>
       </Formik>
     </div>
