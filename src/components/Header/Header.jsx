@@ -68,7 +68,7 @@ const Header = () => {
 
   return (
     <>
-      <header>
+      <header className={styles.header}>
         <div className="container header-container">
           <p className={styles.logo}>Nanny.Services</p>
 
@@ -84,9 +84,13 @@ const Header = () => {
             <ul>
               {user ? (
                 <>
-                  <p>{user.displayName}</p>
+                  <div className={styles.userInfo}>
+                    <img src="../../../image.svg" width="40px" height="40px" alt="" />
+                    <p>{user.displayName}</p>
+                  </div>
+                  
                   <li>
-                    <button onClick={handleLogOut} className={styles.register}>
+                    <button onClick={handleLogOut} className={styles.logout}>
                       Log Out
                     </button>
                   </li>

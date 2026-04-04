@@ -1,15 +1,15 @@
-/* ── HEADER Z-INDEX FIX ── */
-:global(header) {
-    position: relative;
-    z-index: 50;
+.header{
+    background-color: #0957c3;
+    padding: 8px 0;
 }
 
 .logo {
     font-size: 1.5rem;
     font-weight: 700;
+    color: white;
 }
 
-/* ── DESKTOP NAVBAR ── */
+
 .navbar {
     display: flex;
     gap: 100px;
@@ -27,7 +27,13 @@
 
 .navbar ul li a {
     text-decoration: none;
-    color: black;
+    color: white;
+}
+.userInfo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: white;
 }
 
 .login {
@@ -37,22 +43,30 @@
     border-radius: 30px;
     cursor: pointer;
     background: transparent;
-    white-space: nowrap;
     font-family: inherit;
 }
 
 .register {
     padding: 14px 40px;
     background-color: #0957c3;
+    border: 1px solid #84746a;
+    border-radius: 30px;
+    color: white;
+    cursor: pointer;
+    font-family: inherit;
+}
+.logout{
+    padding: 14px 40px;
+    background-color: #0957c3;
     border: none;
     border-radius: 30px;
     color: white;
     cursor: pointer;
-    white-space: nowrap;
     font-family: inherit;
+    border: 1px solid #84746a;
 }
 
-/* ── HAMBURGER ── */
+
 .hamburger {
     display: none;
     flex-direction: column;
@@ -81,7 +95,7 @@
     background: #0957c3;
 }
 
-/* ── OVERLAY ── */
+
 .overlay {
     position: fixed;
     inset: 0;
@@ -100,7 +114,7 @@
     }
 }
 
-/* ── DRAWER ── */
+
 .drawer {
     position: fixed;
     top: 0;
@@ -188,7 +202,7 @@
     margin-bottom: 0.25rem;
 }
 
-/* ── RESPONSIVE ── */
+
 @media (max-width: 768px) {
     .navbar {
         display: none;

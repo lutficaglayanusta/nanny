@@ -5,8 +5,6 @@
 }
 .modalForm form{
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
 }
 
@@ -27,7 +25,7 @@
     border-radius: 12px;
     border: 1px solid gainsboro;
     display: block;
-    margin-bottom: 18px;
+    margin-bottom: 15px;
 }
 
 .modalForm button {
@@ -46,4 +44,13 @@
     right: 0;
     top: 0;
     cursor: pointer;
+}
+.error {
+    display: inline-block;
+    color: red;
+    margin-bottom: 10px;
+}
+
+.error::before {
+    content: "*";
 }

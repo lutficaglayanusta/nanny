@@ -89,7 +89,10 @@ const CardSection = () => {
   return (
     <>
       <div className="container">
-        <select onChange={handleSort} name="" id="">
+        <p className={styles.filters}>
+          Filters
+        </p>
+        <select onChange={handleSort} className={styles.sort}>
           <option value="A to Z">A to Z</option>
           <option value="Z to A">Z to A</option>
           <option value="Less than 10$">Less than 10$</option>

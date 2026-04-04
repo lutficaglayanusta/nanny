@@ -1,8 +1,16 @@
-import { Formik, Field, Form } from "formik";
+import { Formik, Field, Form,ErrorMessage } from "formik";
 import { useNavigate } from "react-router-dom";
 import styles from "./RegisterForm.module.css";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../../firebaseConfig";
+import toast from "react-hot-toast";
+import * as Yup from 'yup';
+
+const RegisterFormSchema = Yup.object().shape({
+  name: Yup.string().required('Required'),
+  email: Yup.string().email('Invalid email format').required('Required'),
+  password: Yup.string().required('Required'),
+});
 
 const RegisterForm = ({ setmodalRegister }) => {
   const closeModal = () => {
@@ -23,8 +31,17 @@ const RegisterForm = ({ setmodalRegister }) => {
       });
       navigate("/nannies");
       closeModal();
+      toast.success("Registration successful!");
     } catch (error) {
-      console.error("Giriş hatası:", error.message);
+
+      if (error.code === "auth/email-already-in-use") {
+        return toast.error("This email is already in use. Please try another one.");
+      }
+      if (error.code === "auth/invalid-email") {
+        return toast.error("Invalid email format. Please enter a valid email.");
+      }
+
+      toast.error("Registration failed. Please try again.");
     }
 
     actions.resetForm();
@@ -44,11 +61,14 @@ const RegisterForm = ({ setmodalRegister }) => {
           password: "",
         }}
         onSubmit={handleSubmit}
+        validationSchema={RegisterFormSchema}
       >
         <Form>
           <Field type="text" id="name" name="name" placeholder="Name" />
+          <ErrorMessage name="name" component="span" className={styles.error} />
 
           <Field type="email" id="email" name="email" placeholder="Email" />
+          <ErrorMessage name="email" component="span" className={styles.error} />
 
           <Field
             type="password"
@@ -56,6 +76,7 @@ const RegisterForm = ({ setmodalRegister }) => {
             name="password"
             placeholder="Password"
           />
+          <ErrorMessage name="password" component="span" className={styles.error} />
 
           <button type="submit">Sign Up</button>
           <p onClick={closeModal} className={styles.close}>

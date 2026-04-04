@@ -1,5 +1,6 @@
 import styles from './HeroSection.module.css';
 import heroImage from '../../assets/img/Rectangle1.jpg';
+import { Link } from 'react-router-dom';
 
 const HeroSection = () => {
   return (
@@ -16,10 +17,10 @@ const HeroSection = () => {
             <p className={styles.heroSubtitle}>
               Find Babysitters Online for All Occasions
             </p>
-            <button className={styles.btnGetStarted}>
+            <Link to="/nannies" className={styles.btnGetStarted}>
               Get started
               <span className={styles.btnArrow}>↗</span>
-            </button>
+            </Link>
           </div>
         </div>
 
