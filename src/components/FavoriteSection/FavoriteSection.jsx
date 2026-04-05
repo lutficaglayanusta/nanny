@@ -89,7 +89,8 @@ const FavoriteSection = () => {
   return (
     <div>
       <div className="container">
-        <select onChange={handleSort} name="" id="">
+        <p className={styles.filters}>Filters</p>
+        <select onChange={handleSort} className={styles.sort}>
           <option value="A to Z">A to Z</option>
           <option value="Z to A">Z to A</option>
           <option value="Less than 10$">Less than 10$</option>
@@ -144,7 +145,7 @@ const FavoriteSection = () => {
                     </li>
                     <li>
                       <span className={styles.color}>Characters:</span>{" "}
-                      {product.characters}
+                      {product.characters.map(char => char.charAt(0).toUpperCase() + char.slice(1)).join(", ")}
                     </li>
                     <li>
                       <span className={styles.color}>Education:</span>{" "}

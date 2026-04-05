@@ -115,7 +115,7 @@ const CardSection = () => {
                     <img src="../../../star.svg" alt="" />
                     {product.rating}
                   </li>
-                  <li>Price / 1 hour: {product.price_per_hour}</li>
+                  <li>Price / 1 hour: <span className={styles.price}>{product.price_per_hour}$</span></li>
                   <li>
                     <button
                       className={styles.heartBtn}
@@ -139,7 +139,7 @@ const CardSection = () => {
                       <span className={styles.color}>Kids Age:</span> {product.kids_age}
                     </li>
                     <li>
-                      <span className={styles.color}>Characters:</span> {product.characters}
+                      <span className={styles.color}>Characters:</span> {product.characters.map(char => char.charAt(0).toUpperCase() + char.slice(1)).join(", ")}
                     </li>
                     <li>
                       <span className={styles.color}>Education:</span> {product.education}

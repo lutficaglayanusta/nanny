@@ -143,6 +143,10 @@
     line-height: 18px;
     margin: 15px 0px;
 }
+.price{
+    color: #38cd3e;
+    font-weight: 500;
+}
 
 @media (max-width: 768px) {
     .card {

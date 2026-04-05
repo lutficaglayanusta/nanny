@@ -19,7 +19,10 @@ const customStyles = {
     right: "auto",
     bottom: "auto",
     transform: "translate(-50%, -50%)",
+    width: "95%",
+    maxWidth: "700px"
   },
+  
 };
 
 const Header = () => {
@@ -70,7 +73,7 @@ const Header = () => {
     <>
       <header className={styles.header}>
         <div className="container header-container">
-          <p className={styles.logo}>Nanny.Services</p>
+          <Link to="/" className={styles.logo}>Nanny.Services</Link>
 
           {/* Desktop navbar */}
           <nav className={styles.navbar}>
@@ -155,7 +158,11 @@ const Header = () => {
           <div className={styles.drawerActions}>
             {user ? (
               <>
-                <p className={styles.drawerUsername}>{user.displayName}</p>
+                <div className={styles.general}>
+                  <img src="../../../image.svg" width="40px" height="40px" alt="" />
+                  <p className={styles.drawerUsername}>{user.displayName}</p>
+                </div>
+                
                 <button onClick={handleLogOut} className={styles.register}>
                   Log Out
                 </button>

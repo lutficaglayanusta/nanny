@@ -126,6 +126,24 @@
     border-radius: 30px;
     border: none;
 }
+.filters {
+    font-size: 14px;
+    color: #C4CCCB;
+    line-height: 18px;
+    margin: 15px 0px;
+}
+.sort {
+    padding: 10px;
+    background-color: #0957C3;
+    border: none;
+    color: white;
+    border-radius: 14px;
+}
+
+.sort option {
+    background-color: white;
+    color: #C4CCCB;
+}
 
 
 @media (max-width: 768px) {

@@ -54,3 +54,15 @@
 .error::before {
     content: "*";
 }
+@media screen and (max-width:600px) {
+    .modalForm{
+        padding: 20px;
+    }
+    .modalForm input {
+        padding: 16px 40px 16px 16px;
+        width: 100%;
+    }
+    .modalForm button {
+        padding: 16px 28px;
+    }
+}
